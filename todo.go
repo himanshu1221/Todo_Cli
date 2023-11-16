@@ -1,7 +1,11 @@
 package todo
 
-import "time"
+import (
+	"errors"
+	"time"
+)
 
+// Declaring tthe structure of the Todos
 type item struct {
 	Task        string
 	Done        bool
@@ -9,8 +13,10 @@ type item struct {
 	CompletedAt time.Time
 }
 
+// Slice used to store dynamic data
 type Todos []item
 
+// Controller to add task in todo
 func (t *Todos) Add(task string) {
 
 	todo := item{
@@ -21,4 +27,18 @@ func (t *Todos) Add(task string) {
 	}
 
 	*t = append(*t, todo)
+}
+
+// Contorller to mark completed task
+func (t *Todos) Completed(index int) error {
+
+	ls := *t
+	if index <= 0 || index > len(ls) {
+		return errors.New("invalid text")
+	}
+
+	ls[index-1].CompletedAt = time.Now()
+	ls[index-1].Done = true
+
+	return nil
 }
