@@ -42,3 +42,18 @@ func (t *Todos) Completed(index int) error {
 
 	return nil
 }
+
+// Controller to delete a Todo
+func (t *Todos) Delete(index int) error {
+
+	ls := *t
+
+	if index <= 0 || index > len(ls) {
+		return errors.New("invalid text")
+	}
+
+	//Used slicing to remove the todo and connect it
+	*t = append(ls[:index-1], ls[index:]...)
+
+	return nil
+}
