@@ -1,7 +1,9 @@
 package main
 
-import "fmt"
+const (
+	todoFile = ".todo.json"
+)
 
 func main() {
-	fmt.Println("Hello World")
+
 }

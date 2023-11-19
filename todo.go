@@ -7,7 +7,7 @@ import (
 	"time"
 )
 
-// Declaring tthe structure of the Todos
+// Declaring the structure of the Todos
 type item struct {
 	Task        string
 	Done        bool
