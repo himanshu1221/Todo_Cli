@@ -15,7 +15,7 @@ const (
 func main() {
 
 	add := flag.Bool("add", false, "add a new todo")
-
+	complete := flag.Int("complete", 0, "Mark a ToDo as completed")
 	flag.Parse()
 
 	//pointing to package todo that we have created ie todo.go
@@ -30,6 +30,17 @@ func main() {
 	case *add:
 		todos.Add("Sample Todo")
 		err := todos.Store(todoFile)
+		if err != nil {
+			fmt.Fprintln(os.Stderr, err.Error())
+			os.Exit(1)
+		}
+	case *complete > 0:
+		err := todos.Completed(*complete)
+		if err != nil {
+			fmt.Fprintln(os.Stderr, err.Error())
+			os.Exit(1)
+		}
+		err = todos.Store(todoFile)
 		if err != nil {
 			fmt.Fprintln(os.Stderr, err.Error())
 			os.Exit(1)
