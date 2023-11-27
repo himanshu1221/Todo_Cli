@@ -1,6 +1,6 @@
 ## Todo_Cli
 
-It is a simple task manager that allows you to create, edit, delete and list tasks from the command line. It is built with Go and Cobra.
+It is a simple task manager that allows you to create, edit, delete and list tasks from the command line. It is built with Go.
 <!-- 
 ![TaskIt demo GIF](https://user-images.githubusercontent.com/51878265/224398202-84823ca4-ba4d-4ae4-915a-9f9f42ee50d0.gif) -->
 
