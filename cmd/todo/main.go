@@ -17,6 +17,7 @@ func main() {
 	add := flag.Bool("add", false, "add a new todo")
 	complete := flag.Int("complete", 0, "Mark a ToDo as completed")
 	del := flag.Int("del", 0, "Delete a todo")
+	list := flag.Bool("list", false, "List all the todos")
 	flag.Parse()
 
 	//pointing to package todo that we have created ie todo.go
@@ -57,7 +58,8 @@ func main() {
 			fmt.Fprintln(os.Stderr, err.Error())
 			os.Exit(1)
 		}
-
+	case *list:
+		todos.List()
 	default:
 		fmt.Fprintln(os.Stdout, "Invalid Command")
 		os.Exit(0)
