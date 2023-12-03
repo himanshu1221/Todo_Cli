@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"os"
 	"time"
+
+	"github.com/alexeyco/simpletable"
 )
 
 // Declaring the structure of the Todos
@@ -92,8 +94,26 @@ func (t *Todos) Store(filename string) error {
 //List all todos
 
 func (t *Todos) List() {
-	for i, item := range *t {
-		i++
-		fmt.Printf("%d - %s \n", i, item.Task)
+	table := simpletable.New()
+	table.Header = &simpletable.Header{
+		Cells: []*simpletable.Cell{
+			{Align: simpletable.AlignCenter, Text: "#"},
+			{Align: simpletable.AlignCenter, Text: "Task"},
+			{Align: simpletable.AlignCenter, Text: "Done ?"},
+			{Align: simpletable.AlignCenter, Text: "Created At"},
+			{Align: simpletable.AlignCenter, Text: "Completed At"},
+		},
 	}
+	var cells [][]*simpletable.Cell
+	for idx, item := range *t {
+		idx++
+		cells = append(cells, *&[]*simpletable.Cell{
+			{Text: fmt.Sprintf("%d", idx)},
+			{Text: item.Task},
+			{Text: fmt.Sprintf("%t", item.Done)},
+			{Text: item.CreatedAt.String()},
+			{Text: item.CompletedAt.Format(time.RFC822)},
+		})
+	}
+	table.Body = &simpletable.Body{Cells: cells}
 }
