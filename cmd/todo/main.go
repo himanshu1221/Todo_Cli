@@ -18,10 +18,11 @@ const (
 
 func main() {
 
-	add := flag.Bool("add", false, "add a new todo")
-	complete := flag.Int("complete", 0, "Mark a ToDo as completed")
+	add := flag.Bool("add", false, "Add a new todo")
+	complete := flag.Int("complete", 0, "Mark a todo as completed")
 	del := flag.Int("del", 0, "Delete a todo")
 	list := flag.Bool("list", false, "List all the todos")
+	helpFlag := flag.Bool("help", false, "Display help message")
 	flag.Parse()
 
 	//pointing to package todo that we have created ie todo.go
@@ -31,7 +32,6 @@ func main() {
 		fmt.Fprintln(os.Stderr, err.Error())
 		os.Exit(1)
 	}
-
 	switch {
 	case *add:
 		task, err := getInput(os.Stdin, flag.Args()...)
@@ -68,8 +68,10 @@ func main() {
 		}
 	case *list:
 		todos.List()
+	case *helpFlag:
+		displayHelp()
 	default:
-		fmt.Fprintln(os.Stdout, "Invalid Command")
+		fmt.Fprintln(os.Stdout, "Invalid Command use -help for usage")
 		os.Exit(0)
 	}
 }
@@ -89,4 +91,16 @@ func getInput(r io.Reader, args ...string) (string, error) {
 		return "", errors.New("empty todo")
 	}
 	return scanner.Text(), nil
+}
+
+// Display Help Message
+func displayHelp() {
+	fmt.Println("\nAvailable Commands:")
+	fmt.Println("  -add `Your text here` - to add todo")
+	fmt.Println("  -complete `Number of todo` - to mark a todo as completed")
+	fmt.Println("  -del `Number of todo` - To delete a todo")
+	fmt.Println("  -list - To list add the todos")
+
+	// Exit the program
+	os.Exit(0)
 }
