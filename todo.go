@@ -107,11 +107,11 @@ func (t *Todos) List() {
 	var cells [][]*simpletable.Cell
 	for idx, item := range *t {
 		idx++
-		cells = append(cells, *&[]*simpletable.Cell{
+		cells = append(cells, []*simpletable.Cell{
 			{Text: fmt.Sprintf("%d", idx)},
 			{Text: item.Task},
 			{Text: fmt.Sprintf("%t", item.Done)},
-			{Text: item.CreatedAt.String()},
+			{Text: item.CreatedAt.Format(time.RFC822)},
 			{Text: item.CompletedAt.Format(time.RFC822)},
 		})
 	}
